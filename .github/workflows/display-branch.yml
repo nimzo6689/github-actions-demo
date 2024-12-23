@@ -12,7 +12,7 @@ jobs:
         uses: actions/checkout@v4
         with:
           fetch-depth: 0  # すべての履歴をフェッチ
-          uses: feature/not-main-branch
+          ref: feature/not-main-branch
 
       - name: ブランチ名を表示
         run: |
