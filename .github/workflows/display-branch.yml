@@ -8,11 +8,22 @@ jobs:
     runs-on: ubuntu-latest
     
     steps:
-      - name: Checkout code
+      - name: main ブランチの workflow かを検証する
+        run: |
+          BRANCH_NAME="${{ github.ref_name }}"
+          
+          if [ "$BRANCH_NAME" != "main" ]; then
+            echo "::error::この workflow は main ブランチで実行する必要があります。現在のブランチ: $BRANCH_NAME"
+            exit 1
+          fi
+
+          echo "ブランチの検証結果: main ブランチで実施されています。"
+
+      - name: チェックアウト
         uses: actions/checkout@v4
         with:
           fetch-depth: 0  # すべての履歴をフェッチ
-          uses: feature/not-main-branch
+          ref: feature/not-main-branch
 
       - name: ブランチ名を表示
         run: |
