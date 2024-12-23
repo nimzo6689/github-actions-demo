@@ -1,0 +1,23 @@
+name: ブランチ名の表示
+
+on:
+  workflow_dispatch:
+
+jobs:
+  show-branch:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0  # すべての履歴をフェッチ
+          uses: feature/not-main-branch
+
+      - name: ブランチ名を表示
+        run: |
+          # GitHub Actions の自動変数にて表示
+          echo "現在のブランチ名を表示（github.ref_name）: ${{ github.ref_name }}"
+          echo "現在のブランチ名を表示（github.ref）: ${{ github.ref }}"
+          # git コマンドにて表示
+          echo "現在のブランチ名を表示（git branch --show-current）: $(git branch --show-current)"
